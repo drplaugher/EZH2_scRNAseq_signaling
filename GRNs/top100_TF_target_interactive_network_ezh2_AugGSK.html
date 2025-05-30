@@ -1,0 +1,382 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 900px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+
+<style>
+  /* Custom styling for the page */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+  }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  .control-group {
+    margin-bottom: 10px;
+  }
+  label {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  button:hover {
+    background-color: #45a049;
+  }
+  select, input {
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  .legend {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+  }
+  .legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  .stats {
+    margin-top: 15px;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+  }
+</style>
+
+<div class="container">
+  <div class="header">
+    <h1>Top 200 TF-Target Connections Network</h1>
+    <p>Interactive visualization of gene regulatory network from pySCENIC</p>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label for="layout-select">Layout:</label>
+      <select id="layout-select" onchange="changeLayout()">
+        <option value="standard">Force-Directed</option>
+        <option value="hierarchical">Hierarchical</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="node-size">Node Size:</label>
+      <input type="range" id="node-size" min="10" max="50" value="30" onchange="changeNodeSize()">
+    </div>
+
+    <div class="control-group">
+      <label for="font-size">Font Size:</label>
+      <input type="range" id="font-size" min="10" max="30" value="22" onchange="changeFontSize()">
+    </div>
+
+    <div class="control-group">
+      <button onclick="stabilizeNetwork()">Stabilize Network</button>
+      <button onclick="resetNetwork()">Reset View</button>
+      <button onclick="exportNetwork()">Export as PNG</button>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-color" style="background-color: #4285F4;"></div>
+      <span>Transcription Factor</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background-color: #34A853;"></div>
+      <span>Target Gene</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background-color: #9C27B0;"></div>
+      <span>Dual Role (TF & Target)</span>
+    </div>
+  </div>
+
+  <div id="stats" class="stats">
+    <p><strong>Network Statistics:</strong></p>
+    <p>Number of nodes: <span id="node-count"></span></p>
+    <p>Number of edges: <span id="edge-count"></span></p>
+    <p>Number of TFs: <span id="tf-count"></span></p>
+    <p>Number of targets: <span id="target-count"></span></p>
+    <p>Number of dual-role genes: <span id="dual-count"></span></p>
+  </div>
+</div>
+
+<script>
+  // JavaScript functions for interactivity
+  function changeLayout() {
+    const layout = document.getElementById('layout-select').value;
+    if (layout === 'hierarchical') {
+      network.setOptions({
+        layout: {
+          hierarchical: {
+            enabled: true,
+            direction: 'UD',
+            sortMethod: 'directed',
+            nodeSpacing: 150,
+            levelSeparation: 200
+          }
+        }
+      });
+    } else {
+      network.setOptions({
+        layout: {
+          hierarchical: {
+            enabled: false
+          }
+        }
+      });
+      network.stabilize(100);
+    }
+  }
+
+  function changeNodeSize() {
+    const size = parseInt(document.getElementById('node-size').value);
+    const nodes = network.body.data.nodes.get();
+    nodes.forEach(node => {
+      if (node.color === '#9C27B0') { // Dual role
+        node.size = size + 5;
+      } else if (node.color === '#4285F4') { // TF
+        node.size = size;
+      } else { // Target
+        node.size = size - 5;
+      }
+    });
+    network.body.data.nodes.update(nodes);
+  }
+
+  function changeFontSize() {
+    const size = parseInt(document.getElementById('font-size').value);
+    const nodes = network.body.data.nodes.get();
+    nodes.forEach(node => {
+      node.font.size = size;
+    });
+    network.body.data.nodes.update(nodes);
+  }
+
+  function stabilizeNetwork() {
+    network.stabilize(500);
+  }
+
+  function resetNetwork() {
+    network.fit({
+      animation: {
+        duration: 1000,
+        easingFunction: 'easeInOutQuad'
+      }
+    });
+  }
+
+  function exportNetwork() {
+    const canvas = document.querySelector('canvas');
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = 'tf_target_network.png';
+    link.click();
+  }
+
+  // Update statistics when the page loads
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      if (typeof network !== 'undefined') {
+        document.getElementById('node-count').textContent = network.body.data.nodes.length;
+        document.getElementById('edge-count').textContent = network.body.data.edges.length;
+
+        // Count node types
+        let tfCount = 0;
+        let targetCount = 0;
+        let dualCount = 0;
+
+        network.body.data.nodes.get().forEach(node => {
+          if (node.color === '#9C27B0') dualCount++;
+          else if (node.color === '#4285F4') tfCount++;
+          else targetCount++;
+        });
+
+        document.getElementById('tf-count').textContent = tfCount;
+        document.getElementById('target-count').textContent = targetCount;
+        document.getElementById('dual-count').textContent = dualCount;
+      }
+    }, 1000); // Give time for network to initialize
+  });
+</script>
+
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Uhrf1", "label": "Uhrf1", "shape": "dot", "size": 25, "title": "Target Gene: Uhrf1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Lig1", "label": "Lig1", "shape": "dot", "size": 25, "title": "Target Gene: Lig1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Rad51ap1", "label": "Rad51ap1", "shape": "dot", "size": 25, "title": "Target Gene: Rad51ap1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Dbn1", "label": "Dbn1", "shape": "dot", "size": 25, "title": "Target Gene: Dbn1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Spag11b", "label": "Spag11b", "shape": "dot", "size": 25, "title": "Target Gene: Spag11b"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Hmmr", "label": "Hmmr", "shape": "dot", "size": 25, "title": "Target Gene: Hmmr"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Smc2", "label": "Smc2", "shape": "dot", "size": 25, "title": "Target Gene: Smc2"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Fosb", "label": "Fosb", "shape": "dot", "size": 25, "title": "Target Gene: Fosb"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Cdca2", "label": "Cdca2", "shape": "dot", "size": 25, "title": "Target Gene: Cdca2"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Slfn9", "label": "Slfn9", "shape": "dot", "size": 25, "title": "Target Gene: Slfn9"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Gm20186", "label": "Gm20186", "shape": "dot", "size": 25, "title": "Target Gene: Gm20186"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Mki67", "label": "Mki67", "shape": "dot", "size": 25, "title": "Target Gene: Mki67"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Kif15", "label": "Kif15", "shape": "dot", "size": 25, "title": "Target Gene: Kif15"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Birc5", "label": "Birc5", "shape": "dot", "size": 25, "title": "Target Gene: Birc5"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Lrr1", "label": "Lrr1", "shape": "dot", "size": 25, "title": "Target Gene: Lrr1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Shcbp1", "label": "Shcbp1", "shape": "dot", "size": 25, "title": "Target Gene: Shcbp1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Igf1", "label": "Igf1", "shape": "dot", "size": 25, "title": "Target Gene: Igf1"}, {"color": "#4285F4", "font": {"color": "black", "face": "arial", "size": 22}, "id": "Nap1l1", "label": "Nap1l1", "shape": "dot", "size": 30, "title": "Transcription Factor: Nap1l1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Ly6i", "label": "Ly6i", "shape": "dot", "size": 25, "title": "Target Gene: Ly6i"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Neil3", "label": "Neil3", "shape": "dot", "size": 25, "title": "Target Gene: Neil3"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Fmo1", "label": "Fmo1", "shape": "dot", "size": 25, "title": "Target Gene: Fmo1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Car4", "label": "Car4", "shape": "dot", "size": 25, "title": "Target Gene: Car4"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Brip1", "label": "Brip1", "shape": "dot", "size": 25, "title": "Target Gene: Brip1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Clspn", "label": "Clspn", "shape": "dot", "size": 25, "title": "Target Gene: Clspn"}, {"color": "#4285F4", "font": {"color": "black", "face": "arial", "size": 22}, "id": "Ehf", "label": "Ehf", "shape": "dot", "size": 30, "title": "Transcription Factor: Ehf"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Ncapg", "label": "Ncapg", "shape": "dot", "size": 25, "title": "Target Gene: Ncapg"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Cenpa", "label": "Cenpa", "shape": "dot", "size": 25, "title": "Target Gene: Cenpa"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Nek2", "label": "Nek2", "shape": "dot", "size": 25, "title": "Target Gene: Nek2"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Cdc20", "label": "Cdc20", "shape": "dot", "size": 25, "title": "Target Gene: Cdc20"}, {"color": "#4285F4", "font": {"color": "black", "face": "arial", "size": 22}, "id": "Dtl", "label": "Dtl", "shape": "dot", "size": 30, "title": "Transcription Factor: Dtl"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Maoa", "label": "Maoa", "shape": "dot", "size": 25, "title": "Target Gene: Maoa"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Mcm5", "label": "Mcm5", "shape": "dot", "size": 25, "title": "Target Gene: Mcm5"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Clip4", "label": "Clip4", "shape": "dot", "size": 25, "title": "Target Gene: Clip4"}, {"color": "#4285F4", "font": {"color": "black", "face": "arial", "size": 22}, "id": "Dnmt1", "label": "Dnmt1", "shape": "dot", "size": 30, "title": "Transcription Factor: Dnmt1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Tfrc", "label": "Tfrc", "shape": "dot", "size": 25, "title": "Target Gene: Tfrc"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Rab27a", "label": "Rab27a", "shape": "dot", "size": 25, "title": "Target Gene: Rab27a"}, {"color": "#9C27B0", "font": {"color": "black", "face": "arial", "size": 24}, "id": "Sox4", "label": "Sox4", "shape": "dot", "size": 35, "title": "Dual Role Gene: Sox4 (acts as both TF and Target)"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Hist1h2ap", "label": "Hist1h2ap", "shape": "dot", "size": 25, "title": "Target Gene: Hist1h2ap"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Gm20234", "label": "Gm20234", "shape": "dot", "size": 25, "title": "Target Gene: Gm20234"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Cenpf", "label": "Cenpf", "shape": "dot", "size": 25, "title": "Target Gene: Cenpf"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Kif20b", "label": "Kif20b", "shape": "dot", "size": 25, "title": "Target Gene: Kif20b"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Cit", "label": "Cit", "shape": "dot", "size": 25, "title": "Target Gene: Cit"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Ddx60", "label": "Ddx60", "shape": "dot", "size": 25, "title": "Target Gene: Ddx60"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Bub1", "label": "Bub1", "shape": "dot", "size": 25, "title": "Target Gene: Bub1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Adm", "label": "Adm", "shape": "dot", "size": 25, "title": "Target Gene: Adm"}, {"color": "#9C27B0", "font": {"color": "black", "face": "arial", "size": 24}, "id": "Ezh2", "label": "Ezh2", "shape": "dot", "size": 35, "title": "Dual Role Gene: Ezh2 (acts as both TF and Target)"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Chst1", "label": "Chst1", "shape": "dot", "size": 25, "title": "Target Gene: Chst1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Tmem158", "label": "Tmem158", "shape": "dot", "size": 25, "title": "Target Gene: Tmem158"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Crip2", "label": "Crip2", "shape": "dot", "size": 25, "title": "Target Gene: Crip2"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Ccne2", "label": "Ccne2", "shape": "dot", "size": 25, "title": "Target Gene: Ccne2"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Aspm", "label": "Aspm", "shape": "dot", "size": 25, "title": "Target Gene: Aspm"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Ckap2", "label": "Ckap2", "shape": "dot", "size": 25, "title": "Target Gene: Ckap2"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Dapl1", "label": "Dapl1", "shape": "dot", "size": 25, "title": "Target Gene: Dapl1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Rrm2", "label": "Rrm2", "shape": "dot", "size": 25, "title": "Target Gene: Rrm2"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Bub1b", "label": "Bub1b", "shape": "dot", "size": 25, "title": "Target Gene: Bub1b"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Mcm6", "label": "Mcm6", "shape": "dot", "size": 25, "title": "Target Gene: Mcm6"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Fcer2a", "label": "Fcer2a", "shape": "dot", "size": 25, "title": "Target Gene: Fcer2a"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Hells", "label": "Hells", "shape": "dot", "size": 25, "title": "Target Gene: Hells"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Prr11", "label": "Prr11", "shape": "dot", "size": 25, "title": "Target Gene: Prr11"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Cenph", "label": "Cenph", "shape": "dot", "size": 25, "title": "Target Gene: Cenph"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Alox12", "label": "Alox12", "shape": "dot", "size": 25, "title": "Target Gene: Alox12"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Il23a", "label": "Il23a", "shape": "dot", "size": 25, "title": "Target Gene: Il23a"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Degs2", "label": "Degs2", "shape": "dot", "size": 25, "title": "Target Gene: Degs2"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Ncaph", "label": "Ncaph", "shape": "dot", "size": 25, "title": "Target Gene: Ncaph"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Kif2c", "label": "Kif2c", "shape": "dot", "size": 25, "title": "Target Gene: Kif2c"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Cdca3", "label": "Cdca3", "shape": "dot", "size": 25, "title": "Target Gene: Cdca3"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Ckap2l", "label": "Ckap2l", "shape": "dot", "size": 25, "title": "Target Gene: Ckap2l"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Pbk", "label": "Pbk", "shape": "dot", "size": 25, "title": "Target Gene: Pbk"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Fscn1", "label": "Fscn1", "shape": "dot", "size": 25, "title": "Target Gene: Fscn1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Cenpe", "label": "Cenpe", "shape": "dot", "size": 25, "title": "Target Gene: Cenpe"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Ttk", "label": "Ttk", "shape": "dot", "size": 25, "title": "Target Gene: Ttk"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Iqgap3", "label": "Iqgap3", "shape": "dot", "size": 25, "title": "Target Gene: Iqgap3"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Lurap1l", "label": "Lurap1l", "shape": "dot", "size": 25, "title": "Target Gene: Lurap1l"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Aurkb", "label": "Aurkb", "shape": "dot", "size": 25, "title": "Target Gene: Aurkb"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Kif23", "label": "Kif23", "shape": "dot", "size": 25, "title": "Target Gene: Kif23"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Cavin1", "label": "Cavin1", "shape": "dot", "size": 25, "title": "Target Gene: Cavin1"}, {"color": "#9C27B0", "font": {"color": "black", "face": "arial", "size": 24}, "id": "Foxq1", "label": "Foxq1", "shape": "dot", "size": 35, "title": "Dual Role Gene: Foxq1 (acts as both TF and Target)"}, {"color": "#4285F4", "font": {"color": "black", "face": "arial", "size": 22}, "id": "Egr2", "label": "Egr2", "shape": "dot", "size": 30, "title": "Transcription Factor: Egr2"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Mxd3", "label": "Mxd3", "shape": "dot", "size": 25, "title": "Target Gene: Mxd3"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Incenp", "label": "Incenp", "shape": "dot", "size": 25, "title": "Target Gene: Incenp"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Hist1h2ae", "label": "Hist1h2ae", "shape": "dot", "size": 25, "title": "Target Gene: Hist1h2ae"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Htra4", "label": "Htra4", "shape": "dot", "size": 25, "title": "Target Gene: Htra4"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Sgo2a", "label": "Sgo2a", "shape": "dot", "size": 25, "title": "Target Gene: Sgo2a"}, {"color": "#4285F4", "font": {"color": "black", "face": "arial", "size": 22}, "id": "Tagln2", "label": "Tagln2", "shape": "dot", "size": 30, "title": "Transcription Factor: Tagln2"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Rad51", "label": "Rad51", "shape": "dot", "size": 25, "title": "Target Gene: Rad51"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Top2a", "label": "Top2a", "shape": "dot", "size": 25, "title": "Target Gene: Top2a"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Car2", "label": "Car2", "shape": "dot", "size": 25, "title": "Target Gene: Car2"}, {"color": "#4285F4", "font": {"color": "black", "face": "arial", "size": 22}, "id": "Foxm1", "label": "Foxm1", "shape": "dot", "size": 30, "title": "Transcription Factor: Foxm1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Cmpk2", "label": "Cmpk2", "shape": "dot", "size": 25, "title": "Target Gene: Cmpk2"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "H2afx", "label": "H2afx", "shape": "dot", "size": 25, "title": "Target Gene: H2afx"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Tpx2", "label": "Tpx2", "shape": "dot", "size": 25, "title": "Target Gene: Tpx2"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Smc4", "label": "Smc4", "shape": "dot", "size": 25, "title": "Target Gene: Smc4"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Esco2", "label": "Esco2", "shape": "dot", "size": 25, "title": "Target Gene: Esco2"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Knstrn", "label": "Knstrn", "shape": "dot", "size": 25, "title": "Target Gene: Knstrn"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Pde1c", "label": "Pde1c", "shape": "dot", "size": 25, "title": "Target Gene: Pde1c"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Prc1", "label": "Prc1", "shape": "dot", "size": 25, "title": "Target Gene: Prc1"}, {"color": "#4285F4", "font": {"color": "black", "face": "arial", "size": 22}, "id": "H2afz", "label": "H2afz", "shape": "dot", "size": 30, "title": "Transcription Factor: H2afz"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Aldh3a1", "label": "Aldh3a1", "shape": "dot", "size": 25, "title": "Target Gene: Aldh3a1"}, {"color": "#34A853", "font": {"color": "black", "face": "arial", "size": 20}, "id": "Knl1", "label": "Knl1", "shape": "dot", "size": 25, "title": "Target Gene: Knl1"}]);
+                  edges = new vis.DataSet([{"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 6.4189", "to": "Ttk", "width": 12.0}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 5.3363", "to": "Brip1", "width": 10.081217682789607}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 4.9207", "to": "Aspm", "width": 9.344644471870396}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 4.6138", "to": "Chst1", "width": 8.80068982207123}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Sox4", "title": "Importance: 4.5814", "to": "Ezh2", "width": 8.743150230377802}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 4.5318", "to": "Bub1", "width": 8.655365918630595}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 4.4034", "to": "Clip4", "width": 8.427657669352715}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 4.3575", "to": "Rrm2", "width": 8.346278228383687}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 4.1913", "to": "Shcbp1", "width": 8.051848616960557}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 3.9049", "to": "Mcm6", "width": 7.544170346100062}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 3.7594", "to": "Dapl1", "width": 7.286309192257424}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 3.6806", "to": "Rad51ap1", "width": 7.146575158218273}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 3.5204", "to": "Prr11", "width": 6.862593423826437}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 3.3916", "to": "Lrr1", "width": 6.634408998788243}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 3.1116", "to": "Ly6i", "width": 6.1382045942636285}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 3.1103", "to": "Cavin1", "width": 6.135868078562458}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 3.1091", "to": "Degs2", "width": 6.1337764638360515}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 3.0888", "to": "Iqgap3", "width": 6.097667991168001}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 2.8531", "to": "Lurap1l", "width": 5.679992295191126}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 2.5553", "to": "Pbk", "width": 5.152146408233324}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 2.4723", "to": "Aurkb", "width": 5.005051442268153}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 2.3871", "to": "Tmem158", "width": 4.8540145250451765}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 2.3422", "to": "Smc2", "width": 4.774372926561096}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Nap1l1", "title": "Importance: 2.2472", "to": "Ezh2", "width": 4.606142243457007}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 2.2106", "to": "Adm", "width": 4.541162582305279}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 2.2058", "to": "Cdc20", "width": 4.532689832743188}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 2.1455", "to": "Fscn1", "width": 4.425886834758452}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 2.0966", "to": "Esco2", "width": 4.339070969670299}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 2.0828", "to": "Uhrf1", "width": 4.314641617561277}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 2.0738", "to": "Ddx60", "width": 4.298717480012752}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 2.0607", "to": "Mcm5", "width": 4.275533431857973}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 2.0593", "to": "Hmmr", "width": 4.273074595940612}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.9856", "to": "Cenpe", "width": 4.1423721961363835}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.9430", "to": "Il23a", "width": 4.066825269282038}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "H2afz", "title": "Importance: 1.9119", "to": "Ezh2", "width": 4.011861982671192}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.8552", "to": "Knstrn", "width": 3.911260556195532}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.8381", "to": "Fmo1", "width": 3.8810282127909783}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.8361", "to": "Hist1h2ap", "width": 3.8773651021407596}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.8242", "to": "Alox12", "width": 3.8562742195598845}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.8169", "to": "Prc1", "width": 3.84334836649452}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.7880", "to": "Cit", "width": 3.792208372697779}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.7786", "to": "Ckap2l", "width": 3.7755950385215264}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.7673", "to": "Cmpk2", "width": 3.755404274917577}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.7433", "to": "Incenp", "width": 3.7130167805302476}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.6990", "to": "Cenpa", "width": 3.6345103279733904}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.6958", "to": "Cenph", "width": 3.6286864649291433}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.6903", "to": "Aldh3a1", "width": 3.618965618114918}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Foxm1", "title": "Importance: 1.6437", "to": "Ezh2", "width": 3.536502735588021}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.6274", "to": "Mki67", "width": 3.5074860935606846}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.5813", "to": "Hells", "width": 3.42578599759075}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.5796", "to": "Smc4", "width": 3.4228841261947904}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.5714", "to": "Kif20b", "width": 3.4082616353331776}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.5694", "to": "Crip2", "width": 3.404743444735077}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.5546", "to": "H2afx", "width": 3.3785138528998067}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.5017", "to": "Kif15", "width": 3.2846722569498636}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.4603", "to": "Spag11b", "width": 3.211278023399754}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.4229", "to": "Top2a", "width": 3.145019749634338}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.3982", "to": "Ncaph", "width": 3.10133231006135}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.3970", "to": "Fcer2a", "width": 3.099175744069365}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.3768", "to": "Ncapg", "width": 3.0634444942293277}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Tagln2", "title": "Importance: 1.3551", "to": "Ezh2", "width": 3.024860427628963}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.3346", "to": "Cenpf", "width": 2.988538485677025}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.3286", "to": "Car4", "width": 2.977926567973271}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.3148", "to": "Sox4", "width": 2.9535344308869886}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.2961", "to": "Nek2", "width": 2.920331182990287}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.2853", "to": "Sgo2a", "width": 2.901160604090293}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.2814", "to": "Foxq1", "width": 2.8942634021518745}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.2561", "to": "Ccne2", "width": 2.849474212158567}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.2465", "to": "Slfn9", "width": 2.8324676805388838}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.2260", "to": "Cdca2", "width": 2.796113589075231}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.2006", "to": "Kif23", "width": 2.7510847160443404}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.1422", "to": "Knl1", "width": 2.647644467656167}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.1408", "to": "Rad51", "width": 2.645134618604335}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Dnmt1", "title": "Importance: 1.1290", "to": "Ezh2", "width": 2.624084283152822}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.1277", "to": "Htra4", "width": 2.6217772087405384}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.0778", "to": "Maoa", "width": 2.5334865798472617}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ehf", "title": "Importance: 1.0601", "to": "Ezh2", "width": 2.5019821391609067}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.0391", "to": "Hist1h2ae", "width": 2.4648291485485725}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 1.0009", "to": "Tpx2", "width": 2.3970436125747585}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Dtl", "title": "Importance: 0.9795", "to": "Ezh2", "width": 2.3592307159698263}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.9784", "to": "Cdca3", "width": 2.3572281110277684}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.9717", "to": "Neil3", "width": 2.3452994103655307}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.9670", "to": "Mxd3", "width": 2.3371118519099787}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.9476", "to": "Tfrc", "width": 2.302690272398704}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.9207", "to": "Ckap2", "width": 2.254893748062441}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.9149", "to": "Fosb", "width": 2.244627598454663}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Foxq1", "title": "Importance: 0.9138", "to": "Ezh2", "width": 2.2427008609721653}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.8863", "to": "Gm20186", "width": 2.1939310867805997}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.8765", "to": "Dbn1", "width": 2.176560219432507}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.8573", "to": "Birc5", "width": 2.1426162548680248}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.8472", "to": "Bub1b", "width": 2.124685949859191}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.8388", "to": "Igf1", "width": 2.1097844322882904}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Egr2", "title": "Importance: 0.8097", "to": "Ezh2", "width": 2.0581640532880283}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.8043", "to": "Rab27a", "width": 2.0486706209783856}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.7974", "to": "Gm20234", "width": 2.0364302035140183}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.7946", "to": "Clspn", "width": 2.031490564589149}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.7938", "to": "Car2", "width": 2.030071585211596}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.7906", "to": "Lig1", "width": 2.0244291270145855}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.7772", "to": "Pde1c", "width": 2.0007129786525457}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1.0}}, "from": "Ezh2", "title": "Importance: 0.7768", "to": "Kif2c", "width": 2.0}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"physics": {"enabled": true, "stabilization": {"iterations": 200, "updateInterval": 25}, "barnesHut": {"gravitationalConstant": -2000, "centralGravity": 0.1, "springLength": 200, "springConstant": 0.04, "damping": 0.09, "avoidOverlap": 0.2}}, "edges": {"smooth": {"type": "dynamic", "forceDirection": "none"}, "color": {"inherit": false}, "font": {"size": 14}}, "nodes": {"shape": "dot", "scaling": {"label": {"enabled": true, "min": 18, "max": 26}}, "shadow": true}, "interaction": {"navigationButtons": true, "keyboard": true, "hover": true, "multiselect": true, "hideEdgesOnDrag": false, "tooltipDelay": 100}, "configure": {"enabled": true, "filter": "physics,layout,interaction,manipulation,renderer", "showButton": true}, "layout": {"improvedLayout": true, "hierarchical": {"enabled": false}}};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
