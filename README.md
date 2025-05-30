@@ -7,9 +7,19 @@ This repository includes supplementary code, data, and figures used in the study
 
 ## Contents
 
-- `scripts/` – Analysis and plotting code (R, Python)
-- `data/` – Supplementary datasets (processed or derived)
-- `figures/` – Supplementary or extended figures from the paper
+`scripts/` – Analysis and plotting code (R, Python)
+> NOTE: These scripts were used for analysis purposes after data had been generated. Code for primary methods were created using respective vignettes, and therefore will not be included here, but will be available upon reasonable request. Please see references below for original methods and source code
+
+- CellChat (https://github.com/jinworks/CellChat)
+- LIANA (https://saezlab.github.io/liana/)
+- pySCENIC (https://github.com/aertslab/pySCENIC)
+- BITFAM (https://github.com/jaleesr/BITFAM)
+- CollecTRI (https://github.com/saezlab/CollecTRI)
+
+
+`data/` – Supplementary datasets (processed or derived)
+
+ `figures/` – Supplementary or extended figures from the paper
 
 ## Licensing
 
