@@ -18,7 +18,8 @@ This repository includes supplementary code, data, and figures used in the study
 
 `data/` – Supplementary datasets (processed or derived)
 
-- Large files can be found on our Zenodo repository (10.5281/zenodo.15579657)
+- Large files can be found on our Zenodo repository (DOI: 10.5281/zenodo.15579657)
+- Sequencing data is on GEO (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE233665)
 
  `figures/` – Supplementary or extended figures from the paper
 
