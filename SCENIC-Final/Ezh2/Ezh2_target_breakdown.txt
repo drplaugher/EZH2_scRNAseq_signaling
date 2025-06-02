@@ -1,0 +1,37 @@
+Target Gene Analysis for Ezh2(+)
+==================================================
+
+Common Target Genes (present in all treatments):
+--------------------------------------------------
+Asf1b, Atad2, Bub1b, Ccnb1, Ccnb2, Cdc20, Cdca3, Cdk1, Cenpf, Cit, Ckap2l, Cks1b, Clspn, Depdc1a, Ezh2, Fbxo5, Hist1h1b, Hist1h2ae, Kif20a, Mcm5, Nusap1, Rrm2, Top2a, Tpx2, Uhrf1
+Total: 25 genes
+
+Treatment-Specific Target Genes:
+--------------------------------------------------
+Control (22 unique genes):
+Adss, Akr1b3, Anxa9, Atf5, Errfi1, Ets1, Flnb, Glul, Hebp1, Htr2c, Ikzf2, Ly75, Mllt3, Mpp6, Nav1, Ndufc2, Nr4a2, Nuf2, Oasl1, S100a3, Tnfrsf4, Usp18
+
+GSK_June (29 unique genes):
+Avpi1, Cdh1, Cdkn2a, Cenpm, Cldn1, Creld2, Ctnnd1, Derl3, Dtymk, Gm3336, Hes1, Hsd17b7, Hsp90b1, Id2, Itga6, Kcnj15, Lgmn, Maf, Ncaph, Nrp2, Plcxd2, Rgs16, Scoc, Sept11, Sh2d1a, Shcbp1, Slc39a10, Tsc22d1, Ucp2
+
+PD1 (32 unique genes):
+Ankrd1, Anxa5, Bcl2, Blk, Cd302, Coro2b, Ctsa, Cttnbp2nl, Fgd4, Flt3, Gas7, Gatm, Gpx1, Hist1h4d, Il1a, Lama5, Ltbp3, Mis18bp1, Myo1e, Nr1d1, Pld3, Ptprs, Rab27a, Rab3il1, Rgl1, Spns1, Syne1, Tmem119, Tnfrsf12a, Tspan2, Tuba1a, Wls
+
+GSK_Aug (24 unique genes):
+Abcd2, Aldh3a1, Apbb2, Cadm1, Cpt1a, Dapl1, Ddx60, Fmo1, Fosb, Foxq1, Hist1h1c, Il23a, Il6st, Lima1, Ly6i, Pbk, Pdia4, Pkdcc, Smc2, Sox2, Tceal8, Tubb6, Wfdc1, Zranb3
+
+Combo (31 unique genes):
+Akap12, Asns, Cbfa2t3, Cenpa, Cldn10, Ctla2a, Cxcr6, Dclk1, Dcxr, Dlg3, Dst, Fam96a, Fkbp2, Gja1, Gpm6b, H1f0, Hspd1, Igfbp4, Il2ra, Lhfp, Lmo2, Melk, Plxna1, Plxnd1, Ppp1r14b, Sdc2, Spata7, Steap3, Tfrc, Tmem45a, Vamp5
+
+Placebo (86 unique genes):
+4930523C07Rik, Ano1, Areg, Arhgap31, Atp2a2, Bcam, Bgn, Bicc1, Bmp4, Camk2n1, Cav1, Ccnd2, Cdh11, Cdkn1a, Celf4, Celsr1, Col14a1, Col1a1, Col1a2, Cryab, Cspg4, Ctgf, Dhrs3, Dlc1, Dnmt3a, Dock10, Efnb2, Eln, Ephx1, Esco2, Fblim1, Ffar2, Fn1, Gas1, Gata6, Grasp, Gstm1, Hells, Hexb, Hip1, Hspg2, Igfbp5, Irx3, Itga2, Itga3, Kcnk2, Kcnn3, Klrk1, Lamb1, Lck, Lpl, Lrr1, Ltbp1, Mecom, Meg3, Mgst3, Mtss1, Myh14, Myl9, Nfia, Nfib, Nfix, Nkx2-1, Npnt, Olfm1, Phldb2, Plxna4, Ptprf, Ptprg, Rbms3, Scara3, Serpinf1, Serping1, Sfta2, Slamf9, Slc29a1, Slc4a4, Socs2, Sparc, Sparcl1, Tcf4, Tgfbr3, Them5, Tspan4, Tubb2a, Tubb2b
+
+
+Total Target Gene Counts by Treatment:
+--------------------------------------------------
+Control: 114 genes
+GSK_June: 147 genes
+PD1: 132 genes
+GSK_Aug: 112 genes
+Combo: 110 genes
+Placebo: 202 genes
