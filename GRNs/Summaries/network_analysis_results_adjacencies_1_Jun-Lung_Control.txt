@@ -1,0 +1,76 @@
+============================================================
+GENE REGULATORY NETWORK ANALYSIS RESULTS
+============================================================
+
+BASIC NETWORK COMPOSITION
+------------------------------
+Total unique genes: 444
+Genes acting as TF only: 44
+Genes acting as target only: 375
+Genes with dual role: 25
+Total edges: 500
+Dual-role gene examples: Adarb1, Anxa1, Mycl, Tcf7, Ckmt1
+
+CONNECTIVITY ANALYSIS
+------------------------------
+Average in-degree: 1.13
+Average out-degree: 1.13
+Max in-degree: 7
+Max out-degree: 55
+
+Top 5 most regulated genes:
+  Cd74: 7 connections
+  Crip1: 6 connections
+  Cd79a: 5 connections
+  Igkc: 5 connections
+  H2-Aa: 5 connections
+
+Top 5 master regulators:
+  Anxa1: 55 connections
+  Nr2f2: 37 connections
+  Ebf1: 32 connections
+  Ets1: 26 connections
+  Nfib: 20 connections
+
+SUBNETWORK ANALYSIS
+------------------------------
+Weakly connected components: 29
+Component sizes: [184, 66, 58, 22, 15, 13, 8, 8, 7, 7, 5, 5, 5, 5, 4, 4, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+Strongly connected components: 436
+Multi-node strong components: 4
+
+NETWORK STRUCTURE
+------------------------------
+Network density: 0.0025
+Reciprocity: 0.0280
+Reciprocal edge pairs: 7
+
+CENTRALITY ANALYSIS
+------------------------------
+Top 5 bridge nodes (betweenness centrality):
+  Ebf1: 0.0005
+  Bcl11b: 0.0003
+  Anxa1: 0.0003
+  Tcf7: 0.0003
+  Ets1: 0.0002
+
+EDGE WEIGHT STATISTICS
+------------------------------
+Min weight: 5.9950
+Max weight: 36.2657
+Mean weight: 8.3260
+Median weight: 7.2339
+Std deviation: 3.2153
+
+Top 5 strongest connections:
+  Ebf1 -> Cd79a: 36.2657
+  Mef2c -> Cd74: 29.0061
+  Ebf1 -> Cd74: 28.4924
+  Ebf1 -> Igkc: 26.2530
+  Ets1 -> mt-Nd1: 20.8630
+
+NETWORK PATTERNS
+------------------------------
+Self-loops (auto-regulation): 0
+Mutual regulation pairs: 7
+Mutual regulation examples: [('Ebf1', 'Pax5'), ('Ebf1', 'Pou2af1'), ('Ebf1', 'Mef2c'), ('Anxa1', 'Ets1'), ('Bcl11b', 'Tcf7')]
