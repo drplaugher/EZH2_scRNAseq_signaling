@@ -1,5 +1,3 @@
-# EZH2_scRNAseq_signaling
-
 # Supplementary Materials for [Paper Title]
 
 This repository includes supplementary code, data, and figures used in the study:
