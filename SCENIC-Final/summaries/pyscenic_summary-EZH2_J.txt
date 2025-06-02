@@ -1,0 +1,86 @@
+pySCENIC Analysis Summary
+========================
+
+Dataset: 2_Jun-Lung_GSK
+Cells: 7824
+Genes: 1500
+
+Cell Type Composition:
+  - Neu-2: 2023 cells (25.9%)
+  - Macs 1: 1153 cells (14.7%)
+  - T cells: 691 cells (8.8%)
+  - Neu-4 classic: 636 cells (8.1%)
+  - Dendritic: 562 cells (7.2%)
+  - Neu-3: 512 cells (6.5%)
+  - Neu-1: 511 cells (6.5%)
+  - Eryth.: 493 cells (6.3%)
+  - Macs 3: 363 cells (4.6%)
+  - Macs 2: 268 cells (3.4%)
+  - Prol.: 219 cells (2.8%)
+  - T cells 2: 151 cells (1.9%)
+  - B cells: 104 cells (1.3%)
+  - Lung Ep.: 86 cells (1.1%)
+  - Neu-5 IFN: 51 cells (0.7%)
+  - Tumor: 1 cells (0.0%)
+
+Number of Regulons: 49
+Average Target Genes per Regulon: 122.9
+Largest Regulon: Irf8(+) (603 target genes)
+
+Top Regulon per Cell Type (by RSS):
+  - Ahr(+): Macs 1 (RSS: 0.4289)
+  - Atf3(+): Neu-2 (RSS: 0.4193)
+  - Atf5(+): Eryth. (RSS: 0.2085)
+  - Bhlhe41(+): Macs 2 (RSS: 0.3453)
+  - Cebpa(+): Macs 1 (RSS: 0.4289)
+  - Dbp(+): T cells (RSS: 0.4596)
+  - Ddit3(+): Neu-2 (RSS: 0.5291)
+  - Ebf1(+): B cells (RSS: 0.3954)
+  - Egr1(+): Neu-2 (RSS: 0.4940)
+  - Egr2(+): Neu-2 (RSS: 0.2994)
+  - Elf5(+): Lung Ep. (RSS: 0.4679)
+  - Ets1(+): T cells (RSS: 0.5107)
+  - Ezh2(+): T cells (RSS: 0.3874)
+  - Fhl2(+): Lung Ep. (RSS: 0.2416)
+  - Fosb(+): Neu-2 (RSS: 0.4494)
+  - Foxm1(+): Prol. (RSS: 0.2849)
+  - Gata6(+): Lung Ep. (RSS: 0.2612)
+  - H1fx(+): Lung Ep. (RSS: 0.2658)
+  - Hes1(+): Dendritic (RSS: 0.3825)
+  - Hivep3(+): Neu-5 IFN (RSS: 0.1916)
+  - Hmgn3(+): Lung Ep. (RSS: 0.4109)
+  - Ikzf2(+): T cells (RSS: 0.2183)
+  - Irf7(+): Macs 1 (RSS: 0.4335)
+  - Irf8(+): Macs 1 (RSS: 0.4244)
+  - Jdp2(+): Neu-2 (RSS: 0.5225)
+  - Klf4(+): Macs 1 (RSS: 0.4117)
+  - Lef1(+): T cells (RSS: 0.5122)
+  - Mafb(+): Macs 1 (RSS: 0.4199)
+  - Mecom(+): Lung Ep. (RSS: 0.5062)
+  - Mef2c(+): Macs 1 (RSS: 0.4653)
+  - Mycl(+): Lung Ep. (RSS: 0.1970)
+  - Nfia(+): Macs 2 (RSS: 0.4530)
+  - Nfib(+): Lung Ep. (RSS: 0.3196)
+  - Nfix(+): Neu-2 (RSS: 0.2807)
+  - Nkx2-1(+): Lung Ep. (RSS: 0.4287)
+  - Nr1d1(+): Eryth. (RSS: 0.2960)
+  - Nr1h3(+): Dendritic (RSS: 0.3910)
+  - Nr2f2(+): Lung Ep. (RSS: 0.3671)
+  - Pax5(+): B cells (RSS: 0.4511)
+  - Pbx1(+): Lung Ep. (RSS: 0.3074)
+  - Pou2af1(+): B cells (RSS: 0.5023)
+  - Pparg(+): Dendritic (RSS: 0.3213)
+  - Sox2(+): Lung Ep. (RSS: 0.5017)
+  - Sox4(+): Eryth. (RSS: 0.3504)
+  - Spats2(+): Lung Ep. (RSS: 0.3794)
+  - Tcf4(+): Macs 1 (RSS: 0.3908)
+  - Tcf7(+): T cells (RSS: 0.5004)
+  - Tcf7l2(+): Neu-2 (RSS: 0.3203)
+  - Tfec(+): Macs 1 (RSS: 0.3451)
+
+Top 5 Most Active Regulons (Average AUC):
+  - Ddit3(+): 0.0791
+  - Jdp2(+): 0.0639
+  - Atf3(+): 0.0578
+  - Mafb(+): 0.0347
+  - Egr1(+): 0.0247
