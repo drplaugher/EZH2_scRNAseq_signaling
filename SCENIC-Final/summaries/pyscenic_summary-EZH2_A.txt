@@ -1,0 +1,84 @@
+pySCENIC Analysis Summary
+========================
+
+Dataset: 4_Aug-Lung3_GSK
+Cells: 4611
+Genes: 1500
+
+Cell Type Composition:
+  - Tumor: 2144 cells (46.5%)
+  - Neu-1: 727 cells (15.8%)
+  - Neu-3: 499 cells (10.8%)
+  - Macs 2: 287 cells (6.2%)
+  - Neu-2: 207 cells (4.5%)
+  - Eryth.: 159 cells (3.4%)
+  - Macs 3: 150 cells (3.3%)
+  - Macs 1: 106 cells (2.3%)
+  - Lung Ep.: 91 cells (2.0%)
+  - Neu-4 classic: 67 cells (1.5%)
+  - Neu-5 IFN: 60 cells (1.3%)
+  - T cells: 41 cells (0.9%)
+  - Dendritic: 31 cells (0.7%)
+  - Prol.: 19 cells (0.4%)
+  - T cells 2: 16 cells (0.3%)
+  - B cells: 7 cells (0.2%)
+
+Number of Regulons: 47
+Average Target Genes per Regulon: 123.4
+Largest Regulon: Irf8(+) (625 target genes)
+
+Top Regulon per Cell Type (by RSS):
+  - Atf3(+): Neu-3 (RSS: 0.4030)
+  - Atf5(+): Tumor (RSS: 0.3724)
+  - Bcl11b(+): T cells (RSS: 0.4573)
+  - Bhlhe41(+): Neu-1 (RSS: 0.3523)
+  - Cebpa(+): Tumor (RSS: 0.5870)
+  - Ckmt1(+): Tumor (RSS: 0.4712)
+  - Dbp(+): Tumor (RSS: 0.7084)
+  - Ddit3(+): Tumor (RSS: 0.7382)
+  - Ebf1(+): B cells (RSS: 0.3961)
+  - Egr1(+): Neu-1 (RSS: 0.4346)
+  - Elf5(+): Tumor (RSS: 0.7493)
+  - Ets1(+): T cells (RSS: 0.4565)
+  - Ezh2(+): Neu-1 (RSS: 0.3038)
+  - Fosb(+): Neu-4 classic (RSS: 0.3475)
+  - Foxq1(+): Tumor (RSS: 0.4052)
+  - Gata6(+): Lung Ep. (RSS: 0.1829)
+  - Hes1(+): Tumor (RSS: 0.2608)
+  - Hivep3(+): Eryth. (RSS: 0.2830)
+  - Id1(+): Neu-1 (RSS: 0.3923)
+  - Ikzf2(+): Tumor (RSS: 0.2983)
+  - Irf7(+): Tumor (RSS: 0.7975)
+  - Irf8(+): Neu-1 (RSS: 0.3605)
+  - Jdp2(+): Tumor (RSS: 0.7850)
+  - Klf4(+): Tumor (RSS: 0.7204)
+  - Lef1(+): T cells (RSS: 0.4149)
+  - Lmo2(+): Macs 2 (RSS: 0.3839)
+  - Maf(+): Neu-1 (RSS: 0.3160)
+  - Mafb(+): Macs 2 (RSS: 0.3472)
+  - Mecom(+): Tumor (RSS: 0.2305)
+  - Mef2c(+): Neu-1 (RSS: 0.3533)
+  - Mxd3(+): Prol. (RSS: 0.2123)
+  - Nfia(+): Neu-1 (RSS: 0.2339)
+  - Nfib(+): Lung Ep. (RSS: 0.2092)
+  - Nfix(+): Macs 2 (RSS: 0.3219)
+  - Nkx2-1(+): Tumor (RSS: 0.4646)
+  - Nr1d1(+): Tumor (RSS: 0.6457)
+  - Nr1h3(+): Neu-1 (RSS: 0.3721)
+  - Nr2f2(+): Tumor (RSS: 0.4018)
+  - Pax5(+): B cells (RSS: 0.4008)
+  - Pbx1(+): Tumor (RSS: 0.4713)
+  - Pparg(+): Macs 2 (RSS: 0.3665)
+  - Sox2(+): Eryth. (RSS: 0.3015)
+  - Tcf4(+): Neu-1 (RSS: 0.4011)
+  - Tcf7(+): T cells (RSS: 0.4563)
+  - Tcf7l2(+): Neu-1 (RSS: 0.3825)
+  - Tfec(+): Neu-1 (RSS: 0.3664)
+  - Yod1(+): Tumor (RSS: 0.7493)
+
+Top 5 Most Active Regulons (Average AUC):
+  - Elf5(+): 0.0854
+  - Yod1(+): 0.0771
+  - Irf7(+): 0.0551
+  - Nr1d1(+): 0.0475
+  - Jdp2(+): 0.0459
