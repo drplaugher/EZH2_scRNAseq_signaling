@@ -15,6 +15,7 @@ This repository includes supplementary code, data, and figures used in the study
 - pySCENIC (https://github.com/aertslab/pySCENIC)
 - BITFAM (https://github.com/jaleesr/BITFAM)
 - CollecTRI (https://github.com/saezlab/CollecTRI)
+- Monocle3 (https://cole-trapnell-lab.github.io/monocle3/docs/introduction/)
 
 
 `data/` – Supplementary datasets (processed or derived)
