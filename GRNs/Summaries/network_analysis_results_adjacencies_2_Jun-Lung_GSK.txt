@@ -9,7 +9,7 @@ Genes acting as TF only: 42
 Genes acting as target only: 329
 Genes with dual role: 15
 Total edges: 500
-Dual-role gene examples: Mxd3, Ckmt1, Pax5, Mecom, Ets1
+All dual-role genes: Mxd3, Ckmt1, Pax5, Mecom, Ets1, Pou2f2, Pbx1, Canx, Anxa1, Nap1l1, Zeb2, Mafb, Lef1, Lmo2, Gata6
 
 CONNECTIVITY ANALYSIS
 ------------------------------
@@ -38,6 +38,8 @@ Weakly connected components: 23
 Component sizes: [226, 37, 23, 22, 15, 14, 7, 4, 4, 4, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2]
 Strongly connected components: 385
 Multi-node strong components: 1
+All multi-node strong components:
+  Component 1 (2 nodes): ['Mafb', 'Pou2f2']
 
 NETWORK STRUCTURE
 ------------------------------
@@ -73,4 +75,4 @@ NETWORK PATTERNS
 ------------------------------
 Self-loops (auto-regulation): 0
 Mutual regulation pairs: 1
-Mutual regulation examples: [('Mafb', 'Pou2f2')]
+All mutual regulation pairs: [('Mafb', 'Pou2f2')]

@@ -9,7 +9,7 @@ Genes acting as TF only: 44
 Genes acting as target only: 375
 Genes with dual role: 25
 Total edges: 500
-Dual-role gene examples: Adarb1, Anxa1, Mycl, Tcf7, Ckmt1
+All dual-role genes: Adarb1, Anxa1, Mycl, Tcf7, Ckmt1, Gadd45a, Ets1, Elf5, Sox2, Irx3, Jdp2, Pou2af1, Mxd3, Lef1, Tfec, Mef2c, Bcl11b, Ebf1, Nkx2-1, Pbx1, Lmo2, Pax5, Bhlhe41, Nr4a1, Acaa1b
 
 CONNECTIVITY ANALYSIS
 ------------------------------
@@ -38,6 +38,11 @@ Weakly connected components: 29
 Component sizes: [184, 66, 58, 22, 15, 13, 8, 8, 7, 7, 5, 5, 5, 5, 4, 4, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
 Strongly connected components: 436
 Multi-node strong components: 4
+All multi-node strong components:
+  Component 1 (5 nodes): ['Pax5', 'Mef2c', 'Ebf1', 'Lmo2', 'Pou2af1']
+  Component 2 (3 nodes): ['Lef1', 'Tcf7', 'Bcl11b']
+  Component 3 (2 nodes): ['Anxa1', 'Ets1']
+  Component 4 (2 nodes): ['Nkx2-1', 'Sox2']
 
 NETWORK STRUCTURE
 ------------------------------
@@ -73,4 +78,4 @@ NETWORK PATTERNS
 ------------------------------
 Self-loops (auto-regulation): 0
 Mutual regulation pairs: 7
-Mutual regulation examples: [('Ebf1', 'Pax5'), ('Ebf1', 'Pou2af1'), ('Ebf1', 'Mef2c'), ('Anxa1', 'Ets1'), ('Bcl11b', 'Tcf7')]
+All mutual regulation pairs: [('Ebf1', 'Pax5'), ('Ebf1', 'Pou2af1'), ('Ebf1', 'Mef2c'), ('Anxa1', 'Ets1'), ('Bcl11b', 'Tcf7'), ('Nkx2-1', 'Sox2'), ('Lef1', 'Tcf7')]

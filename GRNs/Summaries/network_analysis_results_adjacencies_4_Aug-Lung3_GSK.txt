@@ -9,7 +9,7 @@ Genes acting as TF only: 53
 Genes acting as target only: 398
 Genes with dual role: 26
 Total edges: 500
-Dual-role gene examples: Foxm1, Egr1, Anxa1, Mafb, Tcf7
+All dual-role genes: Foxm1, Egr1, Anxa1, Mafb, Tcf7, Ckmt1, Ets1, Jdp2, H1fx, Ddit3, Canx, Hspa5, Arg1, Pou2af1, Mxd3, Irf7, Ikzf3, Ebf1, Bcl11b, Dab2, Pax5, Dbp, Nr1d1, Irf8, Lef1, Id1
 
 CONNECTIVITY ANALYSIS
 ------------------------------
@@ -38,6 +38,14 @@ Weakly connected components: 38
 Component sizes: [269, 41, 23, 20, 18, 10, 7, 7, 5, 5, 5, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
 Strongly connected components: 470
 Multi-node strong components: 7
+All multi-node strong components:
+  Component 1 (2 nodes): ['Ddit3', 'Hspa5']
+  Component 2 (2 nodes): ['Arg1', 'Irf7']
+  Component 3 (2 nodes): ['Pou2af1', 'Ebf1']
+  Component 4 (2 nodes): ['Lef1', 'Tcf7']
+  Component 5 (2 nodes): ['Ikzf3', 'Bcl11b']
+  Component 6 (2 nodes): ['Egr1', 'Id1']
+  Component 7 (2 nodes): ['Nr1d1', 'Dbp']
 
 NETWORK STRUCTURE
 ------------------------------
@@ -73,4 +81,4 @@ NETWORK PATTERNS
 ------------------------------
 Self-loops (auto-regulation): 0
 Mutual regulation pairs: 7
-Mutual regulation examples: [('Arg1', 'Irf7'), ('Ebf1', 'Pou2af1'), ('Ddit3', 'Hspa5'), ('Egr1', 'Id1'), ('Lef1', 'Tcf7')]
+All mutual regulation pairs: [('Arg1', 'Irf7'), ('Ebf1', 'Pou2af1'), ('Ddit3', 'Hspa5'), ('Egr1', 'Id1'), ('Lef1', 'Tcf7'), ('Bcl11b', 'Ikzf3'), ('Dbp', 'Nr1d1')]
