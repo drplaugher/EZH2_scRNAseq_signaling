@@ -1,7 +1,7 @@
-# Supplementary Materials for [Paper Title]
+# Supplementary Materials for Plaugher et. al., [Journal TBD], 2025
 
 This repository includes supplementary code, data, and figures used in the study:
-**"[Full Paper Title]"**, published in [Journal Name], [Year].
+**"Single-cell profiling of EZH2-mediated immune signaling perturbations in NSCLC"**[^1], published in [Journal Name], [Year].
 
 ## Contents
 
@@ -30,6 +30,11 @@ This repository includes supplementary code, data, and figures used in the study
 
 ## Citation
 
-If you use this code or data, please cite the original paper:
+If you use this code or data, please cite the original paper [added upon final publication]:
 
 > [Author Names]. *[Full Title of the Paper]*. [Journal Name], [Year]. DOI: [DOI link]
+
+
+## bioRxiv version
+
+[^1]: 
